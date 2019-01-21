@@ -1,0 +1,31 @@
+<h3>Add another player</h3>
+<input [(ngModel)]="newPlayer.name" placeholder="Name" type="text" />
+<select [(ngModel)]="newPlayer.color" >
+  <option disabled selected value="" >Colour</option>
+  <option *ngFor="let color of colors" [value]="color.code" >{{ color.name }}</option>
+</select>
+<button (click)="createNewPlayer()" >Add new player</button>
+
+<h3>Initiative</h3>
+<table class="initiative">
+  <tr>
+    <th>Score</th>
+    <th>Character</th>
+    <th>Player</th>
+    <th>Modifier</th>
+    <th>Advantage</th>
+  </tr>
+  <tr *ngFor="let row of rows" [style.background-color]="players[row.player]">
+    <td><input [(ngModel)]="row.score" (ngModelChange)="sortRows()" type="number" /></td>
+    <td><input [(ngModel)]="row.character" placeholder="Please enter a name" type="text" /></td>
+    <td><select [(ngModel)]="row.player" >
+      <option *ngFor="let player of iterablePlayers" [value]="player" >{{ player }}</option>
+    </select></td>
+    <td><input [(ngModel)]="row.modifier" (ngModelChange)="sortRows()" type="number" /></td>
+    <td><input [(ngModel)]="row.advantage" type="checkbox" /></td>
+    <td><button (click)="roll(row)" >Roll</button></td>
+    <td><button (click)="delete(row)" >x</button></td>
+  </tr>
+</table>
+
+<button (click)="addRow()">Add New Row</button>
